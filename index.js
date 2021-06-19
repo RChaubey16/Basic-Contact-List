@@ -5,6 +5,7 @@ const port = 7000;
 // setting the view engine as ejs and also the views folder
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
+app.use(express.urlencoded());
 
 app.use("/", require("./routes"));
 
