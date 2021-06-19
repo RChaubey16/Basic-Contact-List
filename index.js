@@ -6,11 +6,7 @@ const port = 7000;
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
 
-app.get("/", function (req, res) {
-  res.render("home", {
-    title: "My Contact List",
-  });
-});
+app.use("/", require("./routes"));
 
 // Running the server
 app.listen(port, function (err) {
