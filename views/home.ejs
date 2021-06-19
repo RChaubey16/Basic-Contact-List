@@ -16,14 +16,16 @@
     
                 <p><%= contact.name %></p>
                 <p><%= contact.phone %></p>
+                <a href="/delete-contact/<%= contact.phone %>">Delete</a>
 
             </li>
+            
         
         <% } %>
     </ul>   
 
     
-    <form action="/contact-list" method="POST">
+    <form action="/create-contact" method="POST">
     
         <input type="text" name="name" id="name" placeholder="Enter your name">
         <input type="text" name="phone" id="phone" placeholder="Enter your phone number">
