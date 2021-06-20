@@ -40,8 +40,6 @@ module.exports.create = function (req, res) {
         console.log("Error in creating contact, ", err);
         return;
       }
-
-      contact_list.push(contact);
       res.redirect("back");
     }
   );
@@ -51,7 +49,7 @@ module.exports.delete = function (req, res) {
   console.log(req.params);
 
   // Deleting contact from mongoDB
-  Contact.deleteOne(req.params._id, function (err, contact) {
+  Contact.findByIdAndDelete(req.params.id, function (err, contact) {
     if (err) {
       console.log("Error in deleting contact from the database", err);
       return;

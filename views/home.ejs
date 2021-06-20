@@ -5,18 +5,30 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><%= title %></title>
+    <link rel="stylesheet" href="/css/home.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.3/css/fontawesome.min.css" integrity="undefined" crossorigin="anonymous">
 </head>
 <body>
 
-    <h3> Your contact list </h3>
+    <h3 id = "heading"> Your contact list </h3>
 
-    <ul>
+    <ul id = "contact-list-container">
         <% for (contact of contact_list) { %>
-            <li>
+            <li id = "contact-list">
+
+                <div id = "list-item">
     
-                <p><%= contact.name %></p>
-                <p><%= contact.phone %></p>
-                <a href="/delete-contact/<%= contact._id %>">Delete</a>
+                    <div id = "list-content">
+                        <p><%= contact.name %></p>
+                        <p><%= contact.phone %></p>
+                    </div>
+
+                    <div id = "delete-icon">
+                        <a href="/delete-contact/<%= contact._id %>">Delete</a>
+                    </div>
+
+                </div>
+                
 
             </li>
             
@@ -25,11 +37,11 @@
     </ul>   
 
     
-    <form action="/create-contact" method="POST">
+    <form action="/create-contact" method="POST" id = "contact-form">
     
         <input type="text" name="name" id="name" placeholder="Enter your name">
         <input type="text" name="phone" id="phone" placeholder="Enter your phone number">
-        <button type="submit">Submit</button>
+        <button type="submit" id = "submit-btn">Submit</button>
 
     </form>
 
