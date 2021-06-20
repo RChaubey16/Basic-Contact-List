@@ -1,43 +1,61 @@
+// 20th June - Create, Read and delete contact from database
+
+const Contact = require("../models/Contact");
+
 // testing array
 const contact_list = [
   {
     name: "Ruturaj Chaubey",
     phone: 8793090098,
   },
-  {
-    name: "Tony Stark",
-    phone: 123456789,
-  },
 ];
 
 // controller action for home page and creating a contact list
 module.exports.home = function (req, res) {
-  return res.render("home", {
-    contact_list: contact_list,
-    title: "Contact List",
+  Contact.find({}, function (err, contacts) {
+    if (err) {
+      console.log("Error in displaying the contacts", err);
+      return;
+    }
+
+    return res.render("home", {
+      contact_list: contacts,
+      title: "My Contact List",
+    });
   });
 };
 
 module.exports.create = function (req, res) {
   const { name, phone } = req.body;
 
-  contact_list.push({
-    name: name,
-    phone: phone,
-  });
+  // Creating contact in MongoDb
+  Contact.create(
+    {
+      name: name,
+      phone: phone,
+    },
+    function (err, contact) {
+      if (err) {
+        console.log("Error in creating contact, ", err);
+        return;
+      }
 
-  return res.redirect("back");
+      contact_list.push(contact);
+      res.redirect("back");
+    }
+  );
 };
 
 module.exports.delete = function (req, res) {
   console.log(req.params);
 
-  let contactIndex = contact_list.findIndex(
-    (contact) => contact.phone == req.params.phone
-  );
-  if (contactIndex != -1) {
-    contact_list.splice(contactIndex, 1);
-  }
+  Contact.deleteOne(req.params._id, function (err, contact) {
+    if (err) {
+      console.log("Error in deleting contact from the database", err);
+      return;
+    }
 
-  return res.redirect("back");
+    console.log("Deleted Contact: ", contact);
+    return res.redirect("back");
+  });
 };
