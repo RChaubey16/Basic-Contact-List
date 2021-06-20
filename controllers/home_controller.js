@@ -12,6 +12,7 @@ const contact_list = [
 
 // controller action for home page and creating a contact list
 module.exports.home = function (req, res) {
+  // fetching or reading data from the database
   Contact.find({}, function (err, contacts) {
     if (err) {
       console.log("Error in displaying the contacts", err);
@@ -49,6 +50,7 @@ module.exports.create = function (req, res) {
 module.exports.delete = function (req, res) {
   console.log(req.params);
 
+  // Deleting contact from mongoDB
   Contact.deleteOne(req.params._id, function (err, contact) {
     if (err) {
       console.log("Error in deleting contact from the database", err);
